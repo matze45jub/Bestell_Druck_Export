@@ -48,7 +48,7 @@
       }
       #orderTable {
         position: relative;
-        top: 50px;
+        top: 10px;
         left: 0;
         width: 100%;
         page-break-inside: avoid;
@@ -265,6 +265,8 @@
     <button id="paymentBtn" onclick="handlePayment()">Zahlung</button>
     <button id="printReceiptBtn" onclick="printReceipt()">Drucke Rechnung</button>
     <button id="completeOrderBtn" onclick="completeOrder()">Bestellung abschließen</button>
+    <button id="clearOrdersBtn" onclick="clearAllOrders()" style="background-color: yellow; color: black;">nur Admin darf löschen</button>
+
   </div>
 
   <div id="pfandModal">
@@ -341,7 +343,7 @@
       { name: "Bier", price: 4.8, category: "getraenke", deposit: 5 },
       { name: "Alkoholfreies Hefe", price: 3.6, category: "getraenke", deposit: 5.0 },
       { name: "Hefeweizen", price: 3.8, category: "getraenke", deposit: 5.0 },
-      { name: "Radler", price: 3.6, category: "getraenke", deposit: 5.0 },
+           { name: "Radler", price: 3.6, category: "getraenke", deposit: 5.0 },
       { name: "Spezi", price: 2.5, category: "getraenke", deposit: 1.0 },
       { name: "Apfelschorle", price: 2.0, category: "getraenke", deposit: 1.0 },
       { name: "Cola", price: 3.0, category: "getraenke", deposit: 1.0 },
@@ -576,54 +578,62 @@
       exportAllOrdersToCSV();
     }
 
-    function exportAllOrdersToCSV() {
-      let orders = JSON.parse(localStorage.getItem('allOrders') || '[]');
+function exportAllOrdersToCSV() {
+  let orders = JSON.parse(localStorage.getItem('allOrders') || '[]');
+  
+  if (orders.length === 0) {
+    alert("Keine Bestellungen zum Exportieren vorhanden.");
+    return;
+  }
+
+  let csvContent = '\uFEFF';  // BOM für UTF-8
+  csvContent += "Datum;Produkt;Menge;Einzelpreis;Pfand;Gesamtpreis;Gesamtsumme;Pfandrückgabe;Zu zahlender Betrag;Gezahlter Betrag;Rückgeld\n";
+
+  orders.forEach(orderData => {
+    const date = new Date(orderData.date).toLocaleString();
+    orderData.order.forEach((item, index) => {
+      const row = [
+        `"${date}"`,
+        `"${item.name}"`,
+        item.quantity,
+        item.price.toFixed(2).replace('.', ','),
+        item.deposit.toFixed(2).replace('.', ','),
+        (item.quantity * (item.price + item.deposit)).toFixed(2).replace('.', ',')
+      ];
       
-      if (orders.length === 0) {
-        alert("Keine Bestellungen zum Exportieren vorhanden.");
-        return;
+      if (index === 0) {
+        row.push(
+          orderData.totalSum.toFixed(2).replace('.', ','),
+          orderData.pfandReturnAmount.toFixed(2).replace('.', ','),
+          orderData.amountToPay.toFixed(2).replace('.', ','),
+          orderData.paymentAmount.toFixed(2).replace('.', ','),
+          orderData.changeAmount.toFixed(2).replace('.', ',')
+        );
       }
+      
+      csvContent += row.join(";") + "\n";
+    });
+  });
 
-      let csvContent = '\uFEFF';  // BOM für UTF-8
-      csvContent += "Datum;Produkt;Menge;Einzelpreis;Pfand;Gesamtpreis;Gesamtsumme;Pfandrückgabe;Zu zahlender Betrag;Gezahlter Betrag;Rückgeld\n";
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement("a");
+  if (link.download !== undefined) {
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", "Verkaeufe.csv");
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+}
 
-      orders.forEach(orderData => {
-        const date = new Date(orderData.date).toLocaleString();
-        orderData.order.forEach((item, index) => {
-          const row = [
-            `"${date}"`,
-            `"${item.name}"`,
-            item.quantity,
-            item.price.toFixed(2).replace('.', ','),
-            item.deposit.toFixed(2).replace('.', ','),
-            (item.quantity * (item.price + item.deposit)).toFixed(2).replace('.', ',')
-          ];
-          
-          // Füge Gesamtinformationen nur zur ersten Zeile jeder Bestellung hinzu
-          if (index === 0) {
-            row.push(
-              orderData.totalSum.toFixed(2).replace('.', ','),
-              orderData.pfandReturnAmount.toFixed(2).replace('.', ','),
-              orderData.amountToPay.toFixed(2).replace('.', ','),
-              orderData.paymentAmount.toFixed(2).replace('.', ','),
-              orderData.changeAmount.toFixed(2).replace('.', ',')
-            );
-          }
-          
-          csvContent += row.join(";") + "\n";
-        });
-      });
 
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-      const link = document.createElement("a");
-      if (link.download !== undefined) {
-        const url = URL.createObjectURL(blob);
-        link.setAttribute("href", url);
-        link.setAttribute("download", "Verkaeufe.csv");
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+    function clearAllOrders() {
+      if (confirm("Möchten Sie wirklich alle gespeicherten Bestellungen löschen?")) {
+        localStorage.removeItem('allOrders');
+        alert("Alle gespeicherten Bestellungen wurden gelöscht.");
+        startNewOrder();
       }
     }
 
@@ -650,3 +660,4 @@
   </script>
 </body>
 </html>
+
