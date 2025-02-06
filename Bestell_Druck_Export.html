@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🎊 JBO feiert mit Freunden</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
- 
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -117,6 +117,9 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      display: inline-block;
+      margin: 5px;
+      min-width: 120px;
     }
     .essen-button {
       background-color: #E74C3C;
@@ -166,6 +169,8 @@
       background-color: #C0392B;
       color: white;
     }
+
+    /* Verbessertes Pfand-Modal */
     #pfandModal {
       display: none;
       position: fixed;
@@ -177,40 +182,156 @@
       justify-content: center;
       align-items: center;
     }
+
     #pfandModalContent {
       background-color: white;
-      padding: 20px;
-      border-radius: 10px;
-      width: 300px;
+      padding: 25px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
+
+    .pfand-item label {
+      display: block;
+      text-align: center;
+      font-size: 1.3em;
+      margin: 15px 0;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
     .pfand-item {
-      margin-bottom: 10px;
+      margin: 20px 0;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-    @media (max-width: 768px) {
-      .product-buttons-row {
-        flex-direction: column;
-        gap: 5px;
-      }
-    }
+
     .quantity-input {
       display: flex;
+      justify-content: center;
       align-items: center;
-      justify-content: space-between;
-      width: 80px;
+      gap: 15px;
     }
+
     .quantity-input button {
-      background-color: #f0f0f0;
-      border: 1px solid #ccc;
-      padding: 5px;
+      padding: 20px 25px;
+      font-size: 1.5em;
+      min-width: 60px;
+      border: 2px solid #3498db;
+      background-color: #fff;
+      color: #3498db;
+      border-radius: 8px;
+      transition: all 0.3s ease;
       cursor: pointer;
-      font-size: 14px;
     }
+
+    .quantity-input button:active {
+      transform: scale(0.95);
+      background-color: #3498db;
+      color: white;
+    }
+
     .quantity-input input {
-      width: 40px;
+      width: 70px;
+      height: 50px;
+      font-size: 1.3em;
       text-align: center;
-      border: 1px solid #ccc;
-      padding: 5px;
-      font-size: 14px;
+      border: 2px solid #3498db;
+      border-radius: 8px;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    #pfandModalContent button.action-btn {
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border-radius: 8px;
+      border: none;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    #pfandModalContent button.action-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Zahlungsdialog-Styles */
+    .payment-dialog {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      z-index: 1000;
+      width: 300px;
+    }
+
+    .payment-header {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .payment-display {
+      background-color: #f0f0f0;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      font-size: 1.2em;
+    }
+
+    .numpad-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .numpad-btn {
+      padding: 15px;
+      font-size: 1.2em;
+      border: none;
+      background-color: #f0f0f0;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .numpad-btn:hover {
+      background-color: #e0e0e0;
+    }
+
+    .payment-controls {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .payment-controls button {
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .confirm-btn {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .cancel-btn {
+      background-color: #f44336;
+      color: white;
     }
   </style>
 </head>
@@ -266,54 +387,62 @@
     <button id="printReceiptBtn" onclick="printReceipt()">Drucke Rechnung</button>
     <button id="completeOrderBtn" onclick="completeOrder()">Bestellung abschließen</button>
     <button id="clearOrdersBtn" onclick="clearAllOrders()" style="background-color: yellow; color: black;">nur Admin darf löschen</button>
-
   </div>
 
+  <!-- Verbessertes Pfand-Modal -->
   <div id="pfandModal">
     <div id="pfandModalContent">
-      <h3>Pfandrückgabe</h3> 
+      <h3 style="text-align: center; font-size: 1.8em; margin-bottom: 20px;">🏺 Pfandrückgabe</h3>
+      
       <div class="pfand-item">
-        <label for="bottleQuantity">Flasche  🍾 (1€):</label>
+        <label>🍾 Flasche (1€)</label>
         <div class="quantity-input">
           <button onclick="updatePfandQuantity('bottle', -1)">-</button>
           <input type="number" id="bottleQuantity" value="0" readonly>
           <button onclick="updatePfandQuantity('bottle', 1)">+</button>
         </div>
       </div>
+
       <div class="pfand-item">
-        <label for="glassQuantity">Glas  🍷 (2€):</label>
+        <label>🍷 Glas (2€)</label>
         <div class="quantity-input">
           <button onclick="updatePfandQuantity('glass', -1)">-</button>
           <input type="number" id="glassQuantity" value="0" readonly>
           <button onclick="updatePfandQuantity('glass', 1)">+</button>
         </div>
       </div>
+
       <div class="pfand-item">
-        <label for="jugQuantity">Krug  🍺  (5€):</label>
+        <label>🍺 Krug (5€)</label>
         <div class="quantity-input">
           <button onclick="updatePfandQuantity('jug', -1)">-</button>
           <input type="number" id="jugQuantity" value="0" readonly>
           <button onclick="updatePfandQuantity('jug', 1)">+</button>
         </div>
       </div>
+
       <div class="pfand-item">
-        <label for="cupQuantity">Tasse ☕️  (2€):</label>
+        <label>☕️ Tasse (2€)</label>
         <div class="quantity-input">
           <button onclick="updatePfandQuantity('cup', -1)">-</button>
           <input type="number" id="cupQuantity" value="0" readonly>
           <button onclick="updatePfandQuantity('cup', 1)">+</button>
         </div>
       </div>
+
       <div class="pfand-item">
-        <label for="dishQuantity">Geschirr  🍽️  (5€):</label>
+        <label>🍽️ Geschirr (5€)</label>
         <div class="quantity-input">
           <button onclick="updatePfandQuantity('dish', -1)">-</button>
           <input type="number" id="dishQuantity" value="0" readonly>
           <button onclick="updatePfandQuantity('dish', 1)">+</button>
         </div>
       </div>
-      <button onclick="calculatePfandReturn()">Berechnen</button>
-      <button onclick="closePfandModal()">Schließen</button>
+
+      <div class="button-group">
+        <button onclick="calculatePfandReturn()" class="action-btn" style="background-color: #27ae60;">📋 Berechnen</button>
+        <button onclick="closePfandModal()" class="action-btn" style="background-color: #e74c3c;">❌ Schließen</button>
+      </div>
     </div>
   </div>
 
@@ -335,18 +464,18 @@
       { name: "Spinat-/Semmelknödel", price: 4.8, category: "essen", deposit: 5 },  
       { name: "Steak", price: 8.5, category: "essen", deposit: 5.0 },
       { name: "VeggieBurger", price: 4.2, category: "essen", deposit: 0 },
-     { name: "Alkoholfreies Bier", price: 3.6, category: "getraenke", deposit: 5.0 },   
-     { name: "Alkoholfreies Hefe", price: 3.6, category: "getraenke", deposit: 5.0 },
-     { name: "Apfelschorle", price: 2.0, category: "getraenke", deposit: 1.0 }, 
-     { name: "Bier", price: 4.8, category: "getraenke", deposit: 5 },
-     { name: "Cola", price: 3.0, category: "getraenke", deposit: 1.0 },
-     { name: "Fanta", price: 3.0, category: "getraenke", deposit: 1.0 },
-     { name: "Hefeweizen", price: 3.8, category: "getraenke", deposit: 5.0 },
-     { name: "Jubiläums-Bier", price: 5.2, category: "getraenke", deposit: 5 },
-     { name: "Radler", price: 3.6, category: "getraenke", deposit: 5.0 },
-     { name: "Spezi", price: 2.5, category: "getraenke", deposit: 1.0 },
-     { name: "Wasser spritzig", price: 2.0, category: "getraenke", deposit: 1.0 },
-     { name: "Wasser still", price: 2.0, category: "getraenke", deposit: 1.0 }
+      { name: "Alkoholfreies Bier", price: 3.6, category: "getraenke", deposit: 5.0 },   
+      { name: "Alkoholfreies Hefe", price: 3.6, category: "getraenke", deposit: 5.0 },
+      { name: "Apfelschorle", price: 2.0, category: "getraenke", deposit: 1.0 }, 
+      { name: "Bier", price: 4.8, category: "getraenke", deposit: 5 },
+      { name: "Cola", price: 3.0, category: "getraenke", deposit: 1.0 },
+      { name: "Fanta", price: 3.0, category: "getraenke", deposit: 1.0 },
+      { name: "Hefeweizen", price: 3.8, category: "getraenke", deposit: 5.0 },
+      { name: "Jubiläums-Bier", price: 5.2, category: "getraenke", deposit: 5 },
+      { name: "Radler", price: 3.6, category: "getraenke", deposit: 5.0 },
+      { name: "Spezi", price: 2.5, category: "getraenke", deposit: 1.0 },
+      { name: "Wasser spritzig", price: 2.0, category: "getraenke", deposit: 1.0 },
+      { name: "Wasser still", price: 2.0, category: "getraenke", deposit: 1.0 }
     ];
 
     let order = [];
@@ -467,55 +596,66 @@
     function handlePayment() {
       const amountToPay = parseFloat(document.getElementById("amountToPay").textContent);
       const paymentDialog = document.createElement("div");
-      paymentDialog.style = `
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: white;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        z-index: 1000;
+      paymentDialog.className = "payment-dialog";
+      paymentDialog.innerHTML = `
+        <div class="payment-header">
+          <h2>Zahlungseingabe</h2>
+          <div class="payment-display">
+            <div>Zu zahlen: <strong>${amountToPay.toFixed(2)} €</strong></div>
+            <div>Eingegeben: <strong id="enteredAmount">0,00 €</strong></div>
+            <div>Rückgeld: <strong id="changeAmount">0,00 €</strong></div>
+          </div>
+        </div>
+        <div class="numpad-grid">
+          <button class="numpad-btn" data-value="7">7</button>
+          <button class="numpad-btn" data-value="8">8</button>
+          <button class="numpad-btn" data-value="9">9</button>
+          <button class="numpad-btn" data-value="4">4</button>
+          <button class="numpad-btn" data-value="5">5</button>
+          <button class="numpad-btn" data-value="6">6</button>
+          <button class="numpad-btn" data-value="1">1</button>
+          <button class="numpad-btn" data-value="2">2</button>
+          <button class="numpad-btn" data-value="3">3</button>
+          <button class="numpad-btn" data-value="0">0</button>
+          <button class="numpad-btn" data-value=".">.</button>
+          <button class="numpad-btn" data-value="C">C</button>
+        </div>
+        <div class="payment-controls">
+          <button class="cancel-btn">Abbrechen</button>
+          <button class="confirm-btn">OK</button>
+        </div>
       `;
 
-      const input = document.createElement("input");
-      input.type = "text";
-      input.inputMode = "decimal";
-      input.style = "width: 200px; margin-bottom: 10px; font-size: 20px;";
+      let enteredValue = "";
 
-      const keypad = document.createElement("div");
-      keypad.style = "display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px;";
-      
-      for (let i = 1; i <= 9; i++) {
-        const btn = document.createElement("button");
-        btn.textContent = i;
-        btn.onclick = () => input.value += i;
-        keypad.appendChild(btn);
+      paymentDialog.querySelectorAll('.numpad-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const value = btn.dataset.value;
+          if (value === 'C') {
+            enteredValue = "";
+          } else if (value === '.' && !enteredValue.includes('.')) {
+            enteredValue += value;
+          } else if (value !== '.') {
+            enteredValue += value;
+          }
+          updateDisplay();
+        });
+      });
+
+      function updateDisplay() {
+        const displayAmount = parseFloat(enteredValue) || 0;
+        paymentDialog.querySelector('#enteredAmount').textContent = displayAmount.toFixed(2) + ' €';
+        
+        const change = displayAmount - amountToPay;
+        paymentDialog.querySelector('#changeAmount').textContent = (change > 0 ? change.toFixed(2) : '0,00') + ' €';
+        
+        const confirmBtn = paymentDialog.querySelector('.confirm-btn');
+        confirmBtn.disabled = displayAmount < amountToPay;
+        confirmBtn.style.opacity = displayAmount < amountToPay ? '0.5' : '1';
       }
 
-      const specialKeys = document.createElement("div");
-      specialKeys.style = "margin-top: 10px; display: flex; gap: 5px;";
-      
-      const clearBtn = document.createElement("button");
-      clearBtn.textContent = "C";
-      clearBtn.onclick = () => input.value = "";
-      
-      const zeroBtn = document.createElement("button");
-      zeroBtn.textContent = "0";
-      zeroBtn.onclick = () => input.value += "0";
-      
-      const commaBtn = document.createElement("button");
-      commaBtn.textContent = ",";
-      commaBtn.onclick = () => {
-        if (!input.value.includes(',')) {
-          input.value += ',';
-        }
-      };
-      
-      const confirmBtn = document.createElement("button");
-      confirmBtn.textContent = "✔";
-      confirmBtn.onclick = () => {
-        const paymentAmount = parseFloat(input.value.replace(',', '.'));
+      paymentDialog.querySelector('.confirm-btn').addEventListener('click', () => {
+        const paymentAmount = parseFloat(enteredValue);
         if (!isNaN(paymentAmount) && paymentAmount >= amountToPay) {
           const change = paymentAmount - amountToPay;
           document.getElementById("paymentAmount").textContent = paymentAmount.toFixed(2);
@@ -524,18 +664,14 @@
         } else {
           alert(`Bitte geben Sie einen gültigen Betrag ein. Mindestbetrag: ${amountToPay.toFixed(2)} €`);
         }
-      };
+      });
 
-      const cancelBtn = document.createElement("button");
-      cancelBtn.textContent = "Abbrechen";
-      cancelBtn.onclick = () => {
+      paymentDialog.querySelector('.cancel-btn').addEventListener('click', () => {
         document.body.removeChild(paymentDialog);
-      };
-      cancelBtn.style = "margin-top: 10px; width: 100%;";
+      });
 
-      specialKeys.append(clearBtn, zeroBtn, commaBtn, confirmBtn);
-      paymentDialog.append(input, keypad, specialKeys, cancelBtn);
       document.body.appendChild(paymentDialog);
+      updateDisplay();
     }
 
     function printReceipt() {
@@ -559,72 +695,65 @@
         changeAmount: changeAmount
       };
 
-      // Hole bestehende Bestellungen aus dem localStorage oder initialisiere ein leeres Array
       let orders = JSON.parse(localStorage.getItem('allOrders') || '[]');
-      
-      // Füge die neue Bestellung hinzu
       orders.push(orderData);
-      
-      // Speichere die aktualisierte Liste im localStorage
       localStorage.setItem('allOrders', JSON.stringify(orders));
 
       alert("Bestellung abgeschlossen und gespeichert!");
       startNewOrder();
       
-      // Führe den Export aller Verkäufe durch
       exportAllOrdersToCSV();
     }
 
-function exportAllOrdersToCSV() {
-  let orders = JSON.parse(localStorage.getItem('allOrders') || '[]');
-  
-  if (orders.length === 0) {
-    alert("Keine Bestellungen zum Exportieren vorhanden.");
-    return;
-  }
-
-  let csvContent = '\uFEFF';  // BOM für UTF-8
-  csvContent += "Datum;Produkt;Menge;Einzelpreis;Pfand;Gesamtpreis;Gesamtsumme;Pfandrückgabe;Zu zahlender Betrag;Gezahlter Betrag;Rückgeld\n";
-
-  orders.forEach(orderData => {
-    const date = new Date(orderData.date).toLocaleString();
-    orderData.order.forEach((item, index) => {
-      const row = [
-        `"${date}"`,
-        `"${item.name}"`,
-        item.quantity,
-        item.price.toFixed(2).replace('.', ','),
-        item.deposit.toFixed(2).replace('.', ','),
-        (item.quantity * (item.price + item.deposit)).toFixed(2).replace('.', ',')
-      ];
+    function exportAllOrdersToCSV() {
+      let orders = JSON.parse(localStorage.getItem('allOrders') || '[]');
       
-      if (index === 0) {
-        row.push(
-          orderData.totalSum.toFixed(2).replace('.', ','),
-          orderData.pfandReturnAmount.toFixed(2).replace('.', ','),
-          orderData.amountToPay.toFixed(2).replace('.', ','),
-          orderData.paymentAmount.toFixed(2).replace('.', ','),
-          orderData.changeAmount.toFixed(2).replace('.', ',')
-        );
+      if (orders.length === 0) {
+        alert("Keine Bestellungen zum Exportieren vorhanden.");
+        return;
       }
-      
-      csvContent += row.join(";") + "\n";
-    });
-  });
 
-  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-  const link = document.createElement("a");
-  if (link.download !== undefined) {
-    const url = URL.createObjectURL(blob);
-    link.setAttribute("href", url);
-    link.setAttribute("download", "Verkaeufe.csv");
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
-}
+      let csvContent = '\uFEFF';
+      csvContent += "Datum;Produkt;Menge;Einzelpreis;Pfand;Gesamtpreis;Gesamtsumme;Pfandrückgabe;Zu zahlender Betrag;Gezahlter Betrag;Rückgeld\n";
 
+      orders.forEach(orderData => {
+        const date = new Date(orderData.date).toLocaleString();
+        orderData.order.forEach((item, index) => {
+          const row = [
+            `"${date}"`,
+            `"${item.name}"`,
+            item.quantity,
+            item.price.toFixed(2).replace('.', ','),
+            item.deposit.toFixed(2).replace('.', ','),
+            (item.quantity * (item.price + item.deposit)).toFixed(2).replace('.', ',')
+          ];
+          
+          if (index === 0) {
+            row.push(
+              orderData.totalSum.toFixed(2).replace('.', ','),
+              orderData.pfandReturnAmount.toFixed(2).replace('.', ','),
+              orderData.amountToPay.toFixed(2).replace('.', ','),
+              orderData.paymentAmount.toFixed(2).replace('.', ','),
+              orderData.changeAmount.toFixed(2).replace('.', ',')
+            );
+          }
+          
+          csvContent += row.join(";") + "\n";
+        });
+      });
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      if (link.download !== undefined) {
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", "Verkaeufe.csv");
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    }
 
     function clearAllOrders() {
       if (confirm("Möchten Sie wirklich alle gespeicherten Bestellungen löschen?")) {
@@ -638,23 +767,26 @@ function exportAllOrdersToCSV() {
       const essenButtons = document.getElementById("essenButtons");
       const getraenkeButtons = document.getElementById("getraenkeButtons");
 
-      products.filter(p => p.category === "essen").forEach(product => {
-        const button = document.createElement("button");
-        button.className = "product-button essen-button";
-        button.textContent = product.name;
-        button.onclick = () => addProductToOrder(product.name);
-        essenButtons.appendChild(button);
-      });
+      if(essenButtons && getraenkeButtons) {
+        products.filter(p => p.category === "essen").forEach(product => {
+          const button = document.createElement("button");
+          button.className = "product-button essen-button";
+          button.textContent = product.name;
+          button.onclick = () => addProductToOrder(product.name);
+          essenButtons.appendChild(button);
+        });
 
-      products.filter(p => p.category === "getraenke").forEach(product => {
-        const button = document.createElement("button");
-        button.className = "product-button getraenke-button";
-        button.textContent = product.name;
-        button.onclick = () => addProductToOrder(product.name);
-        getraenkeButtons.appendChild(button);
-      });
+        products.filter(p => p.category === "getraenke").forEach(product => {
+          const button = document.createElement("button");
+          button.className = "product-button getraenke-button";
+          button.textContent = product.name;
+          button.onclick = () => addProductToOrder(product.name);
+          getraenkeButtons.appendChild(button);
+        });
+      } else {
+        console.error('Button-Container nicht gefunden!');
+      }
     });
   </script>
 </body>
 </html>
-
