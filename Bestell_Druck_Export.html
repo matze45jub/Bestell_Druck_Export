@@ -174,6 +174,17 @@
       color: white;
     }
 
+      .highlight-amount {
+  background-color: #FFCCCB; /* Hellrot */
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+      
+      
+      
+      
     /* Verbessertes Pfand-Modal */
    #pfandModal {
   display: none;
@@ -368,7 +379,7 @@
   <h3>
     Gesamtsumme (€): <span id="totalSum">0.00</span>€
     | Pfandrückgabe: <span id="pfandReturnAmount">0.00</span>€ 
-    | Zu zahlender Betrag: <span id="amountToPay">0.00</span>€
+    | <span class="highlight-amount">Zu zahlender Betrag: <span id="amountToPay">0.00</span>€</span>
     | Zahlung: <span id="paymentAmount">0.00</span>€
     | Rückgeld: <span id="changeAmount">0.00</span>€
   </h3>
@@ -467,8 +478,12 @@
       { name: "Jubiläums-Bier", price: 5.2, category: "getraenke", deposit: 5 },
       { name: "Radler", price: 3.6, category: "getraenke", deposit: 5.0 },
       { name: "Spezi", price: 2.5, category: "getraenke", deposit: 1.0 },
+      { name: "Weinschorle", price: 3.5, category: "getraenke", deposit: 2.0 },
+      { name: "Müller-Thurgau", price: 3.8, category: "getraenke", deposit: 2.0 },
+      { name: "Silvaner", price: 4.2, category: "getraenke", deposit: 2.0 },
       { name: "Wasser spritzig", price: 2.0, category: "getraenke", deposit: 1.0 },
-      { name: "Wasser still", price: 2.0, category: "getraenke", deposit: 1.0 }
+      { name: "Wasser still", price: 2.0, category: "getraenke", deposit: 1.0 },
+      { name: "Leer-Bon 1€", price: 1.0, category: "getraenke", deposit: 0.0 }
     ];
 
     let order = [];
