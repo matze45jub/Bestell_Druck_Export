@@ -43,7 +43,11 @@
         top: 60px;
         padding: 5px;
       }
-      h3 {
+
+        <h3 style="text-align: center; font-size: 1.6em; margin-bottom: 15px;">🏺 Pfandrückgabe</h3>
+
+        
+        h3 {
         text-align: center;
       }
       #orderTable {
@@ -171,43 +175,56 @@
     }
 
     /* Verbessertes Pfand-Modal */
-    #pfandModal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      justify-content: center;
-      align-items: center;
-    }
+   #pfandModal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Stellt sicher, dass das Modal über anderen Elementen liegt */
+}
 
-    #pfandModalContent {
-      background-color: white;
-      padding: 25px;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 500px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
+#pfandModalContent {
+  background-color: white; /* Stellt einen soliden weißen Hintergrund sicher */
+  width: 90%;
+  max-width: 400px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  z-index: 1001; /* Höher als der Hintergrund des Modals */
+}
 
-    .pfand-item label {
-      display: block;
-      text-align: center;
-      font-size: 1.3em;
-      margin: 15px 0;
-      font-weight: bold;
-      color: #2c3e50;
-    }
+.pfand-item {
+  margin: 10px 0; /* Reduziert von 20px */
+  padding: 10px; /* Reduziert von 15px */
+}
 
-    .pfand-item {
-      margin: 20px 0;
-      padding: 15px;
-      background: #f8f9fa;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
+.pfand-item label {
+  font-size: 1.1em; /* Reduziert von 1.3em */
+  margin: 10px 0; /* Reduziert von 15px */
+}
+
+.quantity-input button {
+  padding: 15px 20px; /* Reduziert von 20px 25px */
+  font-size: 1.3em; /* Reduziert von 1.5em */
+  min-width: 50px; /* Reduziert von 60px */
+}
+
+.quantity-input input {
+  width: 60px; /* Reduziert von 70px */
+  height: 45px; /* Reduziert von 50px */
+  font-size: 1.2em; /* Reduziert von 1.3em */
+}
+
+#pfandModalContent button.action-btn {
+  padding: 12px 25px; /* Reduziert von 15px 30px */
+  font-size: 1.1em; /* Reduziert von 1.2em */
+}
+
 
     .quantity-input {
       display: flex;
@@ -216,31 +233,7 @@
       gap: 15px;
     }
 
-    .quantity-input button {
-      padding: 20px 25px;
-      font-size: 1.5em;
-      min-width: 60px;
-      border: 2px solid #3498db;
-      background-color: #fff;
-      color: #3498db;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .quantity-input button:active {
-      transform: scale(0.95);
-      background-color: #3498db;
-      color: white;
-    }
-
-    .quantity-input input {
-      width: 70px;
-      height: 50px;
-      font-size: 1.3em;
-      text-align: center;
-      border: 2px solid #3498db;
-      border-radius: 8px;
+   
     }
 
     .button-group {
