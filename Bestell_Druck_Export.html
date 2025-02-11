@@ -39,7 +39,9 @@ body {
       #orderTable, #orderTable * {
         visibility: visible;
       }
-      .header {
+      
+            
+        .header {
         position: absolute;
         top: 0;
         left: 0;
@@ -155,6 +157,17 @@ body {
       background-color: #f8f8f8;
       box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.1); /* Schatten auf der unteren Kante */
     }
+      
+      
+          /* CSS-Anpassungen für die Bestelltabelle */
+td:nth-child(3),
+td:nth-child(4),
+td:nth-child(5),
+td:nth-child(6),
+td:nth-child(7) {
+    text-align: right; /* Rechtsbündige Ausrichtung */
+    white-space: nowrap; /* Verhindert Zeilenumbrüche */
+}    
    
     .order-summary {
       margin-top: 20px;
