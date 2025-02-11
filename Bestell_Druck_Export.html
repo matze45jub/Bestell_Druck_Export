@@ -210,11 +210,7 @@ html, body {
   border-radius: 4px;
   font-weight: bold;
 }
-
-      
-      
-      
-      
+  
     /* Verbessertes Pfand-Modal */
    #pfandModal {
   display: none;
@@ -231,28 +227,31 @@ html, body {
 
 #pfandModalContent {
   background-color: white; /* Stellt einen soliden weißen Hintergrund sicher */
-  width: 90%;
+  width: 80%;
   max-width: 400px;
-  padding: 20px;
+  padding: 15px;
   border-radius: 12px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   z-index: 1001; /* Höher als der Hintergrund des Modals */
+    max-height: 80vh; /* Maximalhöhe auf 80% der Ansichtshöhe setzen */
+  overflow-y: auto; /* Ermöglicht das Scrollen, wenn der Inhalt zu groß ist */
+  margin: 0 auto; /* Zentriert das Modal auf der Seite */
 }
 
 .pfand-item {
-  margin: 10px 0; /* Reduziert von 20px */
-  padding: 10px; /* Reduziert von 15px */
+  margin: 8px 0; /* Reduziert von 20px */
+  padding: 8px; /* Reduziert von 15px */
 }
 
 .pfand-item label {
   font-size: 1.1em; /* Reduziert von 1.3em */
-  margin: 10px 0; /* Reduziert von 15px */
+  margin: 8px 0; /* Reduziert von 15px */
 }
 
 .quantity-input button {
-  padding: 15px 20px; /* Reduziert von 20px 25px */
-  font-size: 1.3em; /* Reduziert von 1.5em */
-  min-width: 50px; /* Reduziert von 60px */
+  padding: 12px 18px; /* Reduziert von 20px 25px */
+  font-size: 1.1em; /* Reduziert von 1.5em */
+  min-width: 45px; /* Reduziert von 60px */
 }
 
 .quantity-input input {
