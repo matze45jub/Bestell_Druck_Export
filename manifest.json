@@ -1,7 +1,7 @@
 {
   "name": "BestellApp",
   "short_name": "Bestell",
-  "start_url": "index.html",
+  "start_url": "Bestell_Druck_Export.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#007bff",
