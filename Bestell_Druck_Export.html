@@ -827,6 +827,12 @@ document.querySelectorAll('.product').forEach(product => {
       } else {
         console.error('Button-Container nicht gefunden!');
       }
+
+  document.addEventListener("dblclick", function(event) {
+      event.preventDefault(); // Verhindert jegliches Doppelklick-Zoomen
+  });
+
+      
     });
   </script>
 </body>
