@@ -516,6 +516,42 @@ body {
       { name: "Glas-Leer-Bon 2€ 🥛", price: 2.0, category: "getraenke", deposit: 0.0 }
     ];
 
+ // Tabelle füllen
+    const tabelle = document.getElementById("bestelltabelle").getElementsByTagName('tbody')[0];
+
+    // Jede Produktzeile wird durchlaufen
+    produkte.forEach(produkt => {
+      const tr = document.createElement("tr");  // Neue Zeile
+
+      // Produktname
+      const tdName = document.createElement("td");
+      tdName.textContent = produkt.name;  // Produktname einfügen
+      tr.appendChild(tdName);  // Name zur Zeile hinzufügen
+
+      // Preis
+      const tdPrice = document.createElement("td");
+      tdPrice.textContent = `${produkt.price.toFixed(2)} €`;  // Preis formatieren
+      tdPrice.style.textAlign = "right";  // Preis immer rechtsbündig
+      tr.appendChild(tdPrice);  // Preis zur Zeile hinzufügen
+
+      // Pfand
+      const tdDeposit = document.createElement("td");
+      tdDeposit.textContent = `${produkt.deposit.toFixed(2)} €`;  // Pfand formatieren
+      tdDeposit.style.textAlign = "right";  // Pfand immer rechtsbündig
+      tr.appendChild(tdDeposit);  // Pfand zur Zeile hinzufügen
+
+      // Zeile zur Tabelle hinzufügen
+      tabelle.appendChild(tr);
+    });
+
+
+
+
+    
+
+
+
+    
     let order = [];
 
     function startNewOrder() {
