@@ -3,7 +3,7 @@ self.addEventListener("install", (event) => {
     caches.open("bestell-app-cache").then((cache) => {
       return cache.addAll([
         "/",
-        "/index.html",
+        "/Bestell_Druck_Export.html",
         "/styles.css", // Falls vorhanden
         "/script.js",  // Falls vorhanden
         "/icon-192.png",
