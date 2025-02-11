@@ -13,6 +13,14 @@
       padding: 0;
     }
 
+/* Verhindert das Zoomen und Doppelklick-Verhalten */
+body {
+    -webkit-user-select: none; /* Verhindert das Markieren und Doppelklicken */
+    -ms-user-select: none;
+    user-select: none;
+    touch-action: manipulation; /* Deaktiviert das Zoomen durch Doppelklick */
+}
+    
     .footer-message i {
       position: left;
       margin-right: 5px;
@@ -521,6 +529,18 @@
       }
     }
 
+    let lastClickTime = 0;
+document.querySelectorAll('.product').forEach(product => {
+    product.addEventListener('click', function (event) {
+        const currentTime = new Date().getTime();
+        if (currentTime - lastClickTime < 500) {
+            event.preventDefault(); // Verhindert den Doppelklick-Ereignis
+        }
+        lastClickTime = currentTime;
+    });
+});
+
+    
     function renderOrder() {
       const orderTableBody = document.querySelector("#orderTable tbody");
       orderTableBody.innerHTML = "";
