@@ -14,8 +14,28 @@
       padding: 0;
    
 }
+
+    
     }
 
+/* Verhindert Zoom auf der gesamten Seite, lässt jedoch das Scrollen zu */
+html, body {
+  touch-action: none;  /* Deaktiviert Zoom und Gesten für das gesamte Dokument */
+  -ms-touch-action: none; /* Für ältere Browser */
+}
+
+/* Verhindert Zoom in den Modalen, ermöglicht jedoch Scrollen */
+#pfandModal, #paymentDialog {
+  touch-action: auto; /* Standardverhalten für Scrollen */
+  -ms-touch-action: auto; /* Für ältere Browser */
+}
+
+/* Verhindert das Vergrößern von Inhalten */
+#pfandModal, #paymentDialog {
+  -webkit-overflow-scrolling: touch;  /* Ermöglicht sanftes Scrollen auf iOS */
+  overflow-y: auto;  /* Scrollen in vertikale Richtung aktivieren */
+}
+    
     .footer-message i {
       position: left;
       margin-right: 5px;
