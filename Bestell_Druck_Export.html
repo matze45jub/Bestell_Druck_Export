@@ -53,7 +53,7 @@ body {
         padding: 5px;
       }
 
-        <h3 style="text-align: left; font-size: 1.2em; margin-bottom: 15px;">🏺 Pfandrückgabe</h3>
+        <h3 style="text-align: center; font-size: 1.2em; margin-bottom: 15px;">🏺 Pfandrückgabe</h3>
 
         h3 {
         text-align: center;
@@ -369,8 +369,8 @@ body {
   <div class="header">
    <img src="logo.png" alt="Logo">
     <h1>45 Jahre Jugendblasorchester Kürnach</h1>
-    <p class="untertitel">🎉 Schön, dass Du da bist und mit uns feierst! 🎊 </p>
-    <p class="info-text">🍺 Bitte nimm Deinen Ausdruck mit zur jeweiligen Ausgabetheke! 🍔 </p>
+    <p class="untertitel">🎉 Schön, dass Du da bist und mit uns feierst 🎊! </p>
+    <p class="info-text">🍺 Bitte nimm Deinen Ausdruck mit zur jeweiligen Ausgabetheke 🍔! </p>
   </div>
     
   <div id="productButtons" class="product-buttons-container">
@@ -478,11 +478,11 @@ body {
 
   <script>
     const products = [
-      { name: "Bratwurst", price: 3.2, category: "essen", deposit: 0, align: "right" },
+      { name: "Bratwurst 🌭", price: 3.2, category: "essen", deposit: 0 },
       { name: "Camenbert geback.", price: 3.5, category: "essen", deposit: 5 },
       { name: "Cheeseburger", price: 4.6, category: "essen", deposit: 0 },         
       { name: "Falafel mit Dip", price: 6.4, category: "essen", deposit: 5.0 },
-      { name: "Forelle gegr.", price: 7.2, category: "essen", deposit: 5 },
+      { name: "Forelle gegr. 🐟", price: 7.2, category: "essen", deposit: 5 },
       { name: "Gemüsenudeln", price: 6.8, category: "essen", deposit: 5 },
       { name: "Hähnchen", price: 6.5, category: "essen", deposit: 5 },
       { name: "Hamburger", price: 4.2, category: "essen", deposit: 0 },  
@@ -494,7 +494,7 @@ body {
       { name: "Spinat-/Semmelknödel", price: 4.8, category: "essen", deposit: 5 },  
       { name: "Steak", price: 8.5, category: "essen", deposit: 5.0 },
       { name: "VeggieBurger", price: 4.2, category: "essen", deposit: 0 },
-      { name: "Geschirr-Leer-Bon 5€ 🍽️ ", price: 5.0, category: "essen", deposit: 0.0 },
+      { name: "Geschirr-Leer-Bon 5€", price: 5.0, category: "essen", deposit: 0.0 },
       { name: "Alkoholfreies Bier", price: 3.6, category: "getraenke", deposit: 5.0 },   
       { name: "Alkoholfreies Hefe", price: 3.6, category: "getraenke", deposit: 5.0 },
       { name: "Apfelschorle", price: 2.0, category: "getraenke", deposit: 1.0 }, 
@@ -513,45 +513,9 @@ body {
       { name: "Wasser spritzig", price: 2.0, category: "getraenke", deposit: 1.0 },
       { name: "Wasser still", price: 2.0, category: "getraenke", deposit: 1.0 },
       {  },
-      { name: "Glas-Leer-Bon 2€ 🥛", price: 2.0, category: "getraenke", deposit: 0.0 }
+      { name: "Glas-Leer-Bon 2€", price: 2.0, category: "getraenke", deposit: 0.0 }
     ];
 
- // Tabelle füllen
-    const tabelle = document.getElementById("bestelltabelle").getElementsByTagName('tbody')[0];
-
-    // Jede Produktzeile wird durchlaufen
-    produkte.forEach(produkt => {
-      const tr = document.createElement("tr");  // Neue Zeile
-
-      // Produktname
-      const tdName = document.createElement("td");
-      tdName.textContent = produkt.name;  // Produktname einfügen
-      tr.appendChild(tdName);  // Name zur Zeile hinzufügen
-
-      // Preis
-      const tdPrice = document.createElement("td");
-      tdPrice.textContent = `${produkt.price.toFixed(2)} €`;  // Preis formatieren
-      tdPrice.style.textAlign = "right";  // Preis immer rechtsbündig
-      tr.appendChild(tdPrice);  // Preis zur Zeile hinzufügen
-
-      // Pfand
-      const tdDeposit = document.createElement("td");
-      tdDeposit.textContent = `${produkt.deposit.toFixed(2)} €`;  // Pfand formatieren
-      tdDeposit.style.textAlign = "right";  // Pfand immer rechtsbündig
-      tr.appendChild(tdDeposit);  // Pfand zur Zeile hinzufügen
-
-      // Zeile zur Tabelle hinzufügen
-      tabelle.appendChild(tr);
-    });
-
-
-
-
-    
-
-
-
-    
     let order = [];
 
     function startNewOrder() {
