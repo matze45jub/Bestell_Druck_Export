@@ -2,8 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, width=100%">
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🎊 JBO feiert mit Freunden</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -12,32 +11,8 @@
       font-family: Arial, sans-serif;
       margin: 20px;
       padding: 0;
-      overflow-x: hidden;
-    width: 100%;
-   
-}
-
-    
     }
 
-/* Verhindert Zoom auf der gesamten Seite, lässt jedoch das Scrollen zu */
-html, body {
-  touch-action: none;  /* Deaktiviert Zoom und Gesten für das gesamte Dokument */
-  -ms-touch-action: none; /* Für ältere Browser */
-}
-
-/* Verhindert Zoom in den Modalen, ermöglicht jedoch Scrollen */
-#pfandModal, #paymentDialog {
-  touch-action: auto; /* Standardverhalten für Scrollen */
-  -ms-touch-action: auto; /* Für ältere Browser */
-}
-
-/* Verhindert das Vergrößern von Inhalten */
-#pfandModal, #paymentDialog {
-  -webkit-overflow-scrolling: touch;  /* Ermöglicht sanftes Scrollen auf iOS */
-  overflow-y: auto;  /* Scrollen in vertikale Richtung aktivieren */
-}
-    
     .footer-message i {
       position: left;
       margin-right: 5px;
@@ -82,13 +57,6 @@ html, body {
         width: 100%;
         page-break-inside: avoid;
       }
-#pfandModal, #paymentDialog {
-  touch-action: manipulation; /* Verhindert das Zoomen über Touch-Ereignisse */
-  -ms-touch-action: manipulation; /* Für ältere Browser */
-}
-      
-     
-      
       #orderTable th:last-child,
       #orderTable td:last-child {
         display: none;
@@ -206,13 +174,17 @@ html, body {
       color: white;
     }
 
-  .highlight-amount {
+      .highlight-amount {
   background-color: #FFCCCB; /* Hellrot */
   padding: 3px 6px;
   border-radius: 4px;
   font-weight: bold;
 }
-  
+
+      
+      
+      
+      
     /* Verbessertes Pfand-Modal */
    #pfandModal {
   display: none;
@@ -229,31 +201,28 @@ html, body {
 
 #pfandModalContent {
   background-color: white; /* Stellt einen soliden weißen Hintergrund sicher */
-  width: 80%;
+  width: 90%;
   max-width: 400px;
-  padding: 15px;
+  padding: 20px;
   border-radius: 12px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   z-index: 1001; /* Höher als der Hintergrund des Modals */
-    max-height: 80vh; /* Maximalhöhe auf 80% der Ansichtshöhe setzen */
-  overflow-y: auto; /* Ermöglicht das Scrollen, wenn der Inhalt zu groß ist */
-  margin: 0 auto; /* Zentriert das Modal auf der Seite */
 }
 
 .pfand-item {
-  margin: 8px 0; /* Reduziert von 20px */
-  padding: 8px; /* Reduziert von 15px */
+  margin: 10px 0; /* Reduziert von 20px */
+  padding: 10px; /* Reduziert von 15px */
 }
 
 .pfand-item label {
   font-size: 1.1em; /* Reduziert von 1.3em */
-  margin: 8px 0; /* Reduziert von 15px */
+  margin: 10px 0; /* Reduziert von 15px */
 }
 
 .quantity-input button {
-  padding: 12px 18px; /* Reduziert von 20px 25px */
-  font-size: 1.1em; /* Reduziert von 1.5em */
-  min-width: 45px; /* Reduziert von 60px */
+  padding: 15px 20px; /* Reduziert von 20px 25px */
+  font-size: 1.3em; /* Reduziert von 1.5em */
+  min-width: 50px; /* Reduziert von 60px */
 }
 
 .quantity-input input {
