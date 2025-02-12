@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <link rel="manifest" href="/manifest.json">
+ 
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>🎊 JBO feiert mit Freunden ♥️ </title>
@@ -859,13 +859,3 @@ document.querySelectorAll('.product').forEach(product => {
   </script>
 </body>
 </html>
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').then((registration) => {
-      console.log('Service Worker registriert: ', registration);
-    }).catch((error) => {
-      console.log('Fehler bei der Registrierung des Service Workers: ', error);
-    });
-  });
-}
