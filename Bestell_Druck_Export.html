@@ -1,9 +1,8 @@
-<!DOCTYPE html>
+      <!DOCTYPE html>
 <html lang="de">
 <head>
- 
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>🎊 JBO feiert mit Freunden ♥️ </title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -11,16 +10,12 @@
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
-      padding: 0; 
+      padding: 0;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      touch-action: manipulation;
     }
-
-/* Verhindert das Zoomen und Doppelklick-Verhalten */
-body {
-    -webkit-user-select: none; /* Verhindert das Markieren und Doppelklicken */
-    -ms-user-select: none;
-    user-select: none;
-    touch-action: manipulation; /* Deaktiviert das Zoomen durch Doppelklick */
-}
     
     .footer-message i {
       position: left;
@@ -40,8 +35,7 @@ body {
         visibility: visible;
       }
       
-            
-        .header {
+      .header {
         position: absolute;
         top: 0;
         left: 0;
@@ -55,9 +49,7 @@ body {
         padding: 5px;
       }
 
-        <h3 style="text-align: center; font-size: 1.2em; margin-bottom: 15px;">🏺 Pfandrückgabe</h3>
-
-        h3 {
+      h3 {
         text-align: left;
       }
       #orderTable {
@@ -139,35 +131,33 @@ body {
       background-color: #E74C3C;
       color: #FFFFFF;
     }
-     .essen-button:hover {
-      background-color: #C1351D;  /* Dunklere Hintergrundfarbe beim Hover */
+    .essen-button:hover {
+      background-color: #C1351D;
     }
-     .getraenke-button {
+    .getraenke-button {
       background-color: #377EBF;
       color: #FFFFFF;
     }
-.getraenke-button:hover {
-  background-color: #1F4D77;  /* Dunkleres Blau für den Hover-Effekt */
-}
+    .getraenke-button:hover {
+      background-color: #1F4D77;
+    }
     
     #orderTable, #orderTable th, #orderTable td {
       border: 1px solid #ccc;
       border-collapse: collapse;
       padding: 10px;
       background-color: #f8f8f8;
-      box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.1); /* Schatten auf der unteren Kante */
+      box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.1);
     }
       
-      
-          /* CSS-Anpassungen für die Bestelltabelle */
-td:nth-child(3),
-td:nth-child(4),
-td:nth-child(5),
-td:nth-child(6),
-td:nth-child(7) {
-    text-align: right; /* Rechtsbündige Ausrichtung */
-    white-space: nowrap; /* Verhindert Zeilenumbrüche */
-}    
+    td:nth-child(3),
+    td:nth-child(4),
+    td:nth-child(5),
+    td:nth-child(6),
+    td:nth-child(7) {
+      text-align: right;
+      white-space: nowrap;
+    }    
    
     .order-summary {
       margin-top: 20px;
@@ -179,8 +169,6 @@ td:nth-child(7) {
     }
     .button-container {
       text-align: center;
-    }
-    .button-container {
       display: flex;
       gap: 10px;
       margin-top: 20px;
@@ -202,76 +190,73 @@ td:nth-child(7) {
       color: white;
     }
 
-      .highlight-amount {
-  background-color: #FFCCCB; /* Hellrot */
-  padding: 3px 6px;
-  border-radius: 4px;
-  font-weight: bold;
-}
-
+    .highlight-amount {
+      background-color: #FFCCCB;
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
 
     .pfand-container {
-    display: flex;
-    gap: 1px; /* Abstand zwischen den einzelnen Pfand-Items */
-}
+      display: flex;
+      gap: 1px;
+    }
 
-.pfand-item {
-    padding: 1px;
-    border: 1px solid #ccc;
-}
+    .pfand-item {
+      padding: 1px;
+      border: 1px solid #ccc;
+    }
       
-    /* Verbessertes Pfand-Modal */
-   #pfandModal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
-  z-index: 1000; /* Stellt sicher, dass das Modal über anderen Elementen liegt */
-}
+    #pfandModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
 
-#pfandModalContent {
-  background-color: white; /* Stellt einen soliden weißen Hintergrund sicher */
-  width: 90%;
-  max-width: 380px;  /* 400 zuvor */
-  padding: 0px;     /* 20 zuvor */
-  border-radius: 5px;  /* 12 zuvor */
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  z-index: 1001; /* Höher als der Hintergrund des Modals */
-    touch-action: manipulation; /* Verhindert Doppelklick-Zoomen */
-}
+    #pfandModalContent {
+      background-color: white;
+      width: 90%;
+      max-width: 380px;
+      padding: 0px;
+      border-radius: 5px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      z-index: 1001;
+      touch-action: manipulation;
+    }
 
-.pfand-item {
-  margin: 5px 0; /* Reduziert von 20px */
-  padding: 5px; /* Reduziert von 15px */
-}
+    .pfand-item {
+      margin: 5px 0;
+      padding: 5px;
+    }
 
-.pfand-item label {
-  font-size: 1em; /* Reduziert von 1.3em */
-  margin: 5px 0; /* Reduziert von 15px */
-}
+    .pfand-item label {
+      font-size: 1em;
+      margin: 5px 0;
+    }
 
-.quantity-input button {
-  padding: 5px 8px; /* Reduziert von 20px 25px */
-  font-size: 1.3em; /* Reduziert von 1.5em */
-  min-width: 50px; /* Reduziert von 60px */
-}
+    .quantity-input button {
+      padding: 5px 8px;
+      font-size: 1.3em;
+      min-width: 50px;
+    }
 
-.quantity-input input {
-  width: 60px; /* Reduziert von 70px */
-  height: 45px; /* Reduziert von 50px */
-  font-size: 1.2em; /* Reduziert von 1.3em */
-}
+    .quantity-input input {
+      width: 60px;
+      height: 45px;
+      font-size: 1.2em;
+    }
 
-#pfandModalContent button.action-btn {
-  padding: 2px 5px; /* Reduziert von 15px 30px */
-  font-size: 1.1em; /* Reduziert von 1.2em */
-}
-
+    #pfandModalContent button.action-btn {
+      padding: 2px 5px;
+      font-size: 1.1em;
+    }
 
     .quantity-input {
       display: flex;
@@ -279,12 +264,10 @@ td:nth-child(7) {
       align-items: center;
       gap: 15px;
     }
-    }
     
-.pfand-modal-close-button {
-    margin-left: auto; /* Schiebt die Schaltfläche ganz nach rechts */
-}
-
+    .pfand-modal-close-button {
+      margin-left: auto;
+    }
     
     .button-group {
       display: flex;
@@ -307,7 +290,6 @@ td:nth-child(7) {
       transform: scale(0.95);
     }
 
-    /* Zahlungsdialog-Styles */
     .payment-dialog {
       position: fixed;
       top: 50%;
@@ -490,7 +472,7 @@ td:nth-child(7) {
   </div>
 
   <script>
-    const products = [
+      const products = [
       { name: "Bratwurst", price: 3.2, category: "essen", deposit: 0 },
       { name: "Camenbert geback.", price: 3.5, category: "essen", deposit: 5 },
       { name: "Cheeseburger", price: 4.6, category: "essen", deposit: 0 },         
@@ -530,6 +512,7 @@ td:nth-child(7) {
     ];
 
     let order = [];
+    let paymentButtonClicked = false;
 
     function startNewOrder() {
       order = [];
@@ -546,6 +529,8 @@ td:nth-child(7) {
       document.getElementById("jugQuantity").value = 0;
       document.getElementById("cupQuantity").value = 0;
       document.getElementById("dishQuantity").value = 0;
+
+      paymentButtonClicked = false;
     }
 
     function addProductToOrder(name) {
@@ -561,18 +546,6 @@ td:nth-child(7) {
       }
     }
 
-    let lastClickTime = 0;
-document.querySelectorAll('.product').forEach(product => {
-    product.addEventListener('click', function (event) {
-        const currentTime = new Date().getTime();
-        if (currentTime - lastClickTime < 500) {
-            event.preventDefault(); // Verhindert den Doppelklick-Ereignis
-        }
-        lastClickTime = currentTime;
-    });
-});
-
-    
     function renderOrder() {
       const orderTableBody = document.querySelector("#orderTable tbody");
       orderTableBody.innerHTML = "";
@@ -657,6 +630,7 @@ document.querySelectorAll('.product').forEach(product => {
     }
 
     function handlePayment() {
+      paymentButtonClicked = true;
       const amountToPay = parseFloat(document.getElementById("amountToPay").textContent);
       const paymentDialog = document.createElement("div");
       paymentDialog.className = "payment-dialog";
@@ -731,6 +705,7 @@ document.querySelectorAll('.product').forEach(product => {
 
       paymentDialog.querySelector('.cancel-btn').addEventListener('click', () => {
         document.body.removeChild(paymentDialog);
+        paymentButtonClicked = false;
       });
 
       document.body.appendChild(paymentDialog);
@@ -742,6 +717,11 @@ document.querySelectorAll('.product').forEach(product => {
     }
 
     function completeOrder() {
+      if (!paymentButtonClicked) {
+        alert("Bitte klicken Sie zuerst auf 'Zahlung', bevor Sie die Bestellung abschließen.");
+        return;
+      }
+
       const totalSum = parseFloat(document.getElementById("totalSum").textContent);
       const pfandReturnAmount = parseFloat(document.getElementById("pfandReturnAmount").textContent);
       const amountToPay = parseFloat(document.getElementById("amountToPay").textContent);
@@ -850,10 +830,10 @@ document.querySelectorAll('.product').forEach(product => {
         console.error('Button-Container nicht gefunden!');
       }
 
-  document.addEventListener("dblclick", function(event) {
-      event.preventDefault(); // Verhindert jegliches Doppelklick-Zoomen
-  });
 
+document.addEventListener("dblclick", function(event) {
+        event.preventDefault(); // Verhindert jegliches Doppelklick-Zoomen
+      });
       
     });
   </script>
