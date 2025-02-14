@@ -17,6 +17,8 @@
       touch-action: manipulation;
     }
     
+
+            
     .footer-message i {
       position: left;
       margin-right: 5px;
@@ -63,7 +65,9 @@
       #orderTable td:last-child {
         display: none;
       }
-      .product-buttons-container,
+
+        
+        .product-buttons-container,
       .button-container,
       #pfandModal {
         display: none;
@@ -141,7 +145,8 @@
     .getraenke-button:hover {
       background-color: #1F4D77;
     }
-    
+
+      
     #orderTable, #orderTable th, #orderTable td {
       border: 1px solid #ccc;
       border-collapse: collapse;
@@ -380,25 +385,45 @@
   </div>
 
   <h2 style="color: #101A4B;">Bestellung</h2>
-  <table id="orderTable">
-    <thead>
-      <tr>
-        <th>Produkt</th>
-        <th>Menge</th>
-        <th>Einzelpreis (€)</th>
-        <th>Einzelpfand (€)</th>
-        <th>Gesamtpreis (€)</th>
-        <th>Gesamtpfand (€)</th>
-        <th>Gesamt (€)</th>
-        <th>Aktion</th>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
+
+    
+    <table id="orderTable">
+  <thead>
+    <tr>
+      <th>Produkt</th>
+      <th>Menge</th>
+      <th>Einzelpreis (€)</th>
+      <th>Einzelpfand (€)</th>
+      <th>Gesamtpreis (€)</th>
+      <th>Gesamtpfand (€)</th>
+      <th>Gesamt (€)</th>
+      <th>Aktion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Hier werden die Bestellungen dynamisch eingefügt -->
+  </tbody>
+ <tfoot>
+  <tr id="summenzeile">
+    <td>zur Erläuterung</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td id="summe-spalte5">0.00</td>
+    <td id="summe-spalte6">0.00</td>
+    <td id="summe-spalte7">0.00</td>
+    <td></td>
+  </tr>
+</tfoot>
+
+</table>
+    
+    
+    
+    
 
   <h3>
-    Gesamtsumme (€): <span id="totalSum">0.00</span>€
+    Gesamtsumme: <span id="totalSum">0.00</span>€
     | Pfandrückgabe: <span id="pfandReturnAmount">0.00</span>€ 
     | <span class="highlight-amount">Zu zahlender Betrag: <span id="amountToPay">0.00</span>€</span>
     | Zahlung: <span id="paymentAmount">0.00</span>€
@@ -529,6 +554,11 @@
       document.getElementById("jugQuantity").value = 0;
       document.getElementById("cupQuantity").value = 0;
       document.getElementById("dishQuantity").value = 0;
+        
+        document.getElementById('summe-spalte5').textContent = '0 ';
+document.getElementById('summe-spalte6').textContent = '0 ';
+document.getElementById('summe-spalte7').textContent = '0 ';
+
 
       paymentButtonClicked = false;
     }
@@ -546,40 +576,81 @@
       }
     }
 
-    function renderOrder() {
-      const orderTableBody = document.querySelector("#orderTable tbody");
-      orderTableBody.innerHTML = "";
+    
+      
+       const table = document.getElementById('orderTable');
 
-      let totalSum = 0;
+function berechneSummen() {
+  const zeilen = document.querySelector("#orderTable tbody").getElementsByTagName("tr");
+  let summe5 = 0, summe6 = 0, summe7 = 0;
 
-      order.forEach(item => {
-        const totalProductPrice = item.price * item.quantity;
-        const totalProductDeposit = item.deposit * item.quantity;
-        const totalItemPrice = totalProductPrice + totalProductDeposit;
-
-        totalSum += totalItemPrice;
-
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${item.name}</td>
-          <td>
-            <button onclick="updateQuantity('${item.name}', -1)">-</button>
-            ${item.quantity}
-            <button onclick="updateQuantity('${item.name}', 1)">+</button>
-          </td>
-          <td>${item.price.toFixed(2)}</td>
-          <td>${item.deposit.toFixed(2)}</td>
-          <td>${totalProductPrice.toFixed(2)}</td>
-          <td>${totalProductDeposit.toFixed(2)}</td>
-          <td>${totalItemPrice.toFixed(2)}</td>
-          <td><button onclick="removeProduct('${item.name}')">Entfernen</button></td>
-        `;
-        orderTableBody.appendChild(row);
-      });
-
-      document.getElementById("totalSum").textContent = totalSum.toFixed(2);
-      document.getElementById("amountToPay").textContent = totalSum.toFixed(2);
+  // Iteriere über alle Zeilen im Tabellenkörper (tbody)
+  for (let i = 0; i < zeilen.length; i++) {
+    const zellen = zeilen[i].getElementsByTagName("td");
+    if (zellen.length >= 7) {
+      // Summiere die Werte der Spalten 5, 6 und 7
+      summe5 += parseFloat(zellen[4].textContent.replace(",", ".") || "0");
+      summe6 += parseFloat(zellen[5].textContent.replace(",", ".") || "0");
+      summe7 += parseFloat(zellen[6].textContent.replace(",", ".") || "0");
     }
+  }
+
+  // Aktualisiere die Summenzeile
+  document.getElementById("summe-spalte5").textContent = summe5.toFixed(2);
+  document.getElementById("summe-spalte6").textContent = summe6.toFixed(2);
+  document.getElementById("summe-spalte7").textContent = summe7.toFixed(2);
+}
+
+      
+      
+   function addDecimal(a, b) {
+  return Math.round((a + b) * 100) / 100;
+}
+   
+      
+      
+      
+      
+      
+      
+  function renderOrder() {
+  const orderTableBody = document.querySelector("#orderTable tbody");
+  orderTableBody.innerHTML = "";
+
+  let totalSum = 0;
+
+  order.forEach(item => {
+    const totalProductPrice = item.price * item.quantity;
+    const totalProductDeposit = item.deposit * item.quantity;
+    const totalItemPrice = totalProductPrice + totalProductDeposit;
+
+    totalSum += totalItemPrice;
+
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${item.name}</td>
+      <td>
+        <button onclick="updateQuantity('${item.name}', -1)">-</button>
+        ${item.quantity}
+        <button onclick="updateQuantity('${item.name}', 1)">+</button>
+      </td>
+      <td>${item.price.toFixed(2)}</td>
+      <td>${item.deposit.toFixed(2)}</td>
+      <td>${totalProductPrice.toFixed(2)}</td>
+      <td>${totalProductDeposit.toFixed(2)}</td>
+      <td>${totalItemPrice.toFixed(2)}</td>
+      <td><button onclick="removeProduct('${item.name}')">Entfernen</button></td>
+    `;
+    orderTableBody.appendChild(row);
+  });
+
+  document.getElementById("totalSum").textContent = totalSum.toFixed(2);
+  document.getElementById("amountToPay").textContent = totalSum.toFixed(2);
+
+  // Berechne Summen für die Zeile "zur Erläuterung"zu"
+  berechneSummen();
+}
+
 
     function updateQuantity(name, change) {
       const product = order.find(p => p.name === name);
@@ -718,7 +789,7 @@
 
     function completeOrder() {
       if (!paymentButtonClicked) {
-        alert("Wurde denn schon gezahlt, da Du die Bestellung abschließen willst?");
+         alert("Wurde denn schon gezahlt, da Du die Bestellung abschließen willst?");
         return;
       }
 
