@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
   <style>
+ 
+      
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
@@ -77,7 +79,8 @@
       text-align: center;
       padding-top: 10px;
     }
-    .header img {
+      
+      .header img {
       position: absolute;
       top: 10px;
       left: 10px;
@@ -361,6 +364,9 @@
       background-color: #f44336;
       color: white;
     }
+      
+      
+      
   </style>
 </head>
 <body>
@@ -403,13 +409,14 @@
   </tbody>
  <tfoot>
   <tr id="summenzeile">
-    <td>zur Erläuterung</td>
+        <tr style="background-color: pink;">
+    <td><span class="highlight-amount">zur Erläuterung</span></td>
     <td></td>
     <td></td>
-    <td></td>
-    <td id="summe-spalte5">0.00</td>
-    <td id="summe-spalte6">0.00</td>
-    <td id="summe-spalte7">0.00</td>
+    <td></td> 
+    <td><span class="highlight-amount" id="summe-spalte5">0.00</span></td>
+    <td><span class="highlight-amount" id="summe-spalte6">0.00</span></td>
+    <td><span class="highlight-amount" id="summe-spalte7">0.00</span></td>
     <td></td>
   </tr>
 </tfoot>
