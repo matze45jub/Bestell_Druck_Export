@@ -119,12 +119,12 @@
       margin: 10px 0;
       color: #101A4B;
     }
-    .product-buttons-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
+   .product-buttons-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px; /* Einheitlicher Abstand */
+  justify-content: center;
+}
       
       
   .button-wrapper {
@@ -135,10 +135,10 @@
 }
 
 .product-button {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   border-radius: 20px;
-  border: none;
+  border: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -235,6 +235,8 @@
       padding: 10px 20px;
       font-size: 16px;
       background-color: #E74C3C;
+         justify-content: center; /* Zentriert die Buttons */
+         gap: 20px;
       color: white;
       border: none;
       border-radius: 5px;
