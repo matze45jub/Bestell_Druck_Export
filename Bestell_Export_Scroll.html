@@ -308,11 +308,17 @@ input[type=number] {
     }
 
       
-      
 .button-container {
   display: flex;
-  justify-content: center;
-  margin-top: 5px;
+  justify-content: center; /* Zentriert die vier Buttons */
+  gap: 10px; /* Abstand zwischen den Buttons */
+  width: 100%;
+  position: relative; /* Erlaubt Positionierung des Admin-Buttons */
+}
+
+#clearOrdersBtn {
+  position: absolute;
+  right: 0; /* Setzt den Admin-Button ganz rechts */
 }
 
 .button-container button {
@@ -865,13 +871,13 @@ input[type="number"] {
       return Math.round((a + b) * 100) / 100;
     }
 
-    function renderOrder() {
-      const orderTableBody = document.querySelector("#orderTable tbody");
-      orderTableBody.innerHTML = "";
+function renderOrder() {
+    const orderTableBody = document.querySelector("#orderTable tbody");
+    orderTableBody.innerHTML = "";
 
-      let totalSum = 0;
+    let totalSum = 0;
 
-      order.forEach(item => {
+    order.forEach(item => {
         const totalProductPrice = item.price * item.quantity;
         const totalProductDeposit = item.deposit * item.quantity;
         const totalItemPrice = totalProductPrice + totalProductDeposit;
@@ -880,27 +886,28 @@ input[type="number"] {
 
         const row = document.createElement("tr");
         row.innerHTML = `
-          <td>${item.name}</td>
-          <td>
-            <button onclick="updateQuantity('${item.name}', -1)">-</button>
-            ${item.quantity}
-            <button onclick="updateQuantity('${item.name}', 1)">+</button>
-          </td>
-          <td>${item.price.toFixed(2)}</td>
-          <td>${item.deposit.toFixed(2)}</td>
-          <td>${totalProductPrice.toFixed(2)}</td>
-          <td>${totalProductDeposit.toFixed(2)}</td>
-          <td>${totalItemPrice.toFixed(2)}</td>
-          <td><button onclick="removeProduct('${item.name}')">Entfernen</button></td>
+            <td>${item.name}</td>
+            <td>
+                <button onclick="updateQuantity('${item.name}', -1)">-</button>
+                ${item.quantity}
+                <button onclick="updateQuantity('${item.name}', 1)">+</button>
+            </td>
+            <td>${item.price.toFixed(2)}</td>
+            <td>${item.deposit.toFixed(2)}</td>
+            <td>${totalProductPrice.toFixed(2)}</td>
+            <td>${totalProductDeposit.toFixed(2)}</td>
+            <td>${totalItemPrice.toFixed(2)}</td>
+            <td><button onclick="removeProduct('${item.name}')">Entfernen</button></td>
         `;
         orderTableBody.appendChild(row);
-      });
+    });
 
-      document.getElementById("totalSum").textContent = totalSum.toFixed(2);
-      document.getElementById("amountToPay").textContent = totalSum.toFixed(2);
+    document.getElementById("totalSum").textContent = totalSum.toFixed(2);
 
-      berechneSummen();
-    }
+    // Neue Berechnung mit Pfandrückgabe durchführen
+    calculatePfandReturn();
+    berechneSummen();
+}
 
     function updateQuantity(name, change) {
       const product = order.find(p => p.name === name);
@@ -934,21 +941,24 @@ input[type="number"] {
       }
     }
 
-    function calculatePfandReturn() {
-      let pfandReturnAmount = 0;
-      pfandReturnAmount += parseInt(document.getElementById("bottleQuantity").value) * 1;
-      pfandReturnAmount += parseInt(document.getElementById("glassQuantity").value) * 2;
-      pfandReturnAmount += parseInt(document.getElementById("jugQuantity").value) * 5;
-      pfandReturnAmount += parseInt(document.getElementById("cupQuantity").value) * 2;
-      pfandReturnAmount += parseInt(document.getElementById("dishQuantity").value) * 5;
+function calculatePfandReturn() {
+    let pfandReturnAmount = 0;
+    pfandReturnAmount += parseInt(document.getElementById("bottleQuantity").value) * 1;
+    pfandReturnAmount += parseInt(document.getElementById("glassQuantity").value) * 2;
+    pfandReturnAmount += parseInt(document.getElementById("jugQuantity").value) * 5;
+    pfandReturnAmount += parseInt(document.getElementById("cupQuantity").value) * 2;
+    pfandReturnAmount += parseInt(document.getElementById("dishQuantity").value) * 5;
 
-      document.getElementById("pfandReturnAmount").textContent = pfandReturnAmount.toFixed(2);
+    // Speichert den Pfandbetrag und stellt sicher, dass es eine gültige Zahl ist
+    document.getElementById("pfandReturnAmount").textContent = pfandReturnAmount.toFixed(2);
 
-      let totalAmountToPay = parseFloat(document.getElementById("totalSum").textContent);
-      let updatedAmountToPay = totalAmountToPay - pfandReturnAmount;
+    // Stellt sicher, dass `totalSum` eine Zahl ist (falls noch keine Bestellung existiert)
+    let totalAmountToPay = parseFloat(document.getElementById("totalSum").textContent) || 0;
 
-      document.getElementById("amountToPay").textContent = updatedAmountToPay.toFixed(2);
-    }
+    // Berechnung des neuen zu zahlenden Betrags
+    let updatedAmountToPay = totalAmountToPay - pfandReturnAmount;
+    document.getElementById("amountToPay").textContent = updatedAmountToPay.toFixed(2);
+}
 
     function handlePayment() {
       paymentButtonClicked = true;
