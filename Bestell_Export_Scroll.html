@@ -39,13 +39,21 @@
       }
       
         .header {
-position: relative;
+            background: linear-gradient(to bottom, #D8D8D8, #585858);
+            position: relative;
   text-align: center;
   padding-top: 10px;
             background-color: #f0f0f0;
       padding: 10px;
       
     }
+        
+              h1 {
+  background-image: linear-gradient(to right, #0000FF, #FF0000);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
         .info-text {
         border: 3px solid #ccc;
@@ -68,6 +76,8 @@ position: relative;
       #orderTable td:last-child {
         display: none;
       }
+
+
         
       .product-buttons-container,
       .button-container,
@@ -77,6 +87,7 @@ position: relative;
     }
  
   .main-container {
+padding-bottom: 100px; /* Erhöhen Sie diesen Wert bei Bedarf */
       display: flex;
       flex: 1;
       overflow: hidden;
@@ -94,30 +105,52 @@ position: relative;
       padding: 10px;
     }
     
-    .payment-area {
-      background-color: #f0f0f0;
-      padding: 10px;
-    }
+  .payment-area {
+  background-color: #f0f0f0;
+  padding: 5px 10px;
+  position: fixed;
+  bottom: 30px; /* Erhöht die Position */
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.payment-area h3 {
+  font-size: 16px; /* Kleinere Schriftgröße */
+  margin: 5px 0;
+}
+
+
+.header {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  background-color: #f0f0f0;
+}      
       
-      
-.header img.logo {
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #101A4B;
+  position: relative;
+  z-index: 2;
+}
+
+      .header img.logo {
   position: absolute;
   top: 50%;
   right: 10px;
   transform: translateY(-50%);
-  width: 60px; /* Passen Sie die Größe nach Bedarf an */
+  width: 60px;
   height: auto;
-  z-index: -1; /* Platziert das Logo hinter dem Text */
+  z-index: 1;
 }
-
-.header h1 {
-  margin: 0 0 10px 0;
-  font-size: 20px;
-  color: #101A4B;
-  position: relative;
-  z-index: 1; /* Stellt sicher, dass der Text über dem Logo liegt */
-}
-
+      
+      
+      
+      
+      
     .header .untertitel {
       font-size: 16px;
       margin: 0 0 10px 0;
@@ -131,7 +164,7 @@ position: relative;
       padding: 10px;
     }
     h3 {
-      text-align: left;
+      text-align: center;
     }    
     .product-buttons-container {
       margin-bottom: 20px;
@@ -188,11 +221,19 @@ position: relative;
 
 
       
+   body:before {
+  content: "";
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background: linear-gradient(to bottom, #d3d3d3, #a0a0a0);
+}
+   
       
-      
-      
-      
-      
+ 
       
       .product-button:hover {
       transform: scale(1.05);
@@ -248,26 +289,28 @@ position: relative;
     .hidden {
       display: none;
     }
-    .button-container {
-      text-align: center;
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-    }
-    .button-container button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #E74C3C;
-         justify-content: center; /* Zentriert die Buttons */
-         gap: 20px;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .button-container button:hover {
-      background-color: #C0392B;
-    }
+
+      
+      
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.button-container button {
+  padding: 5px 10px;
+  font-size: 14px;
+  margin: 0 2px;
+}
+
+      
+      
+.button-container button:hover {
+  background-color: #45a049;
+}
+      
+      
     .pfand-button {
       background-color: #C0392B;
       color: white;
@@ -446,6 +489,9 @@ position: relative;
 <body>
   <div class="header">
   
+      
+
+      
    <h1>45 Jahre Jugendblasorchester Kürnach</h1>
     <img src="https://matze45jub.github.io/Bestell_Druck_Export/Images/logo.png" alt="Logo" class="logo">
   </div>
@@ -469,16 +515,16 @@ position: relative;
     </div>
 
     <div class="order-area">
-      <h2 style="color: #101A4B;">Bestellung</h2>
+      <h3 style="color: #101A4B;">Bestellung</h3>
       <table id="orderTable">
         <thead>
           <tr>
             <th>Produkt</th>
             <th>Menge</th>
-            <th>Einzelpreis (€)</th>
-            <th>Einzelpfand (€)</th>
-            <th>Gesamtpreis (€)</th>
-            <th>Gesamtpfand (€)</th>
+            <th>E.-preis (€)</th>
+            <th>E.-pfand (€)</th>
+            <th>G.-preis (€)</th>
+            <th>G.-pfand (€)</th>
             <th>Gesamt (€)</th>
             <th>Aktion</th>
           </tr>
@@ -488,7 +534,7 @@ position: relative;
         </tbody>
         <tfoot>
           <tr id="summenzeile" style="background-color: pink;">
-            <td><span class="highlight-amount">zur Erläuterung</span></td>
+            <td><span class="highlight-amount">Erläuterung</span></td>
             <td></td>
             <td></td>
             <td></td> 
@@ -511,6 +557,11 @@ position: relative;
       | Rückgeld: <span id="changeAmount">0.00</span>€
     </h3>
 
+         
+
+
+         
+         
     <div class="button-container">
       <button id="newCustomerBtn" onclick="startNewOrder()">Neuer Kunde</button>
       <button id="pfandReturnBtn" class="pfand-button" onclick="openPfandModal()">Pfandrückgabe</button>
@@ -729,6 +780,9 @@ position: relative;
       document.getElementById("summe-spalte7").textContent = summe7.toFixed(2);
     }
 
+
+     
+     
     function addDecimal(a, b) {
       return Math.round((a + b) * 100) / 100;
     }
@@ -1011,7 +1065,7 @@ position: relative;
 </script>
 
     
-  <footer style="position: fixed; bottom: 0; width: 100%; text-align: center; color: #C1351D; padding: 8px; font-size: 12px; background-color: white;">
+  <footer style="position: fixed; bottom: 0; width: 100%; text-align: center; color: #C1351D; padding: 8px; font-size: 12px; background-color: white; z-index: 1000;">
     copyright @ M1Wundi
   </footer>
 </body>
