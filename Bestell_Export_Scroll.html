@@ -48,20 +48,20 @@
       
     }
         
-              h1 {
-  background-image: linear-gradient(to right, #0000FF, #FF0000);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+h1 {
+  background-image: linear-gradient(to right, #0000FF, #FF0000); /* Farbverlauf von Blau nach Rot */
+  -webkit-background-clip: text; /* Für WebKit-basierte Browser */
+  background-clip: text; /* Für andere Browser */
+  color: transparent; /* Macht den Text transparent, damit der Verlauf sichtbar wird */
 }
 
-        .info-text {
-        border: 3px solid #ccc;
-        background-color: #f0f0f0;
-        top: 60px;
-        padding: 5px;
-      }
-
+.info-text {
+  border: 3px solid #ccc;
+  background-color: #f0f0f0;
+  top: 60px;
+  padding: 5px;
+}
+        
       h3 {
         text-align: left;
       }
@@ -1139,7 +1139,7 @@ function calculatePfandReturn() {
     }
 
     function clearAllOrders() {
-      if (confirm("Möchten Sie wirklich alle gespeicherten Bestellungen löschen?")) {
+      if (confirm("Vorsicht ! Möchtest Du wirklich alle gespeicherten Bestellungen löschen?")) {
         localStorage.removeItem('allOrders');
         alert("Alle gespeicherten Bestellungen wurden gelöscht.");
         startNewOrder();
